@@ -23,7 +23,6 @@
             columns: Array[String],
             data: Array[{colname:Value}]
     */
-
     import SummaryTable from './SummaryTable.vue'
     export default {
         
@@ -38,9 +37,9 @@
         }),
 
         created () {
-            this.axios.get('/static/data/w27/data.json').then(response => {
+            this.axios.get('http://vm236.nubes.stfc.ac.uk:3000/fetchall').then(response => {
                 console.log('Axios workloads result',response.data);
-                this.workloads = [response.data]
+                this.workloads = response.data;
             })
 
         },
