@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workload name="s3-eudat-workload-1"
+    description="First workload for the eudat S3 server" config="">
+    <auth type="none"/>
+    <storage type="s3" config="accesskey=accessKey1;secretkey=verySecretKey1;endpoint=http://eudat-01.rl.ac.uk;path_style_access=true"/>
+    <workflow config="">
+        <workstage name="init" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=accessKey1;secretkey=verySecretKey1;endpoint=http://eudat-01.rl.ac.uk;path_style_access=true"/>
+            <work name="init" type="init" workers="1" interval="5"
+                division="container" runtime="0" rampup="0" rampdown="0"
+                afr="0" totalOps="1" totalBytes="0" config="cprefix=s3testqwer;containers=r(1,16)">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=accessKey1;secretkey=verySecretKey1;endpoint=http://eudat-01.rl.ac.uk;path_style_access=true"/>
+                <operation type="init" ratio="100" division="container"
+                    config="cprefix=s3testqwer;containers=r(1,16);cprefix=s3testqwer;containers=r(1,16);cprefix=s3testqwer;containers=r(1,16);objects=r(0,0);sizes=c(0)B;cprefix=s3testqwer;containers=r(1,16)" id="op1"/>
+            </work>
+        </workstage>
+        <workstage name="prepare" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=accessKey1;secretkey=verySecretKey1;endpoint=http://eudat-01.rl.ac.uk;path_style_access=true"/>
+            <work name="prepare" type="prepare" workers="1" interval="5"
+                division="object" runtime="0" rampup="0" rampdown="0"
+                afr="0" totalOps="1" totalBytes="0" config="cprefix=s3testqwer;containers=r(1,16);objects=r(1,100);sizes=c(2)MB">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=accessKey1;secretkey=verySecretKey1;endpoint=http://eudat-01.rl.ac.uk;path_style_access=true"/>
+                <operation type="prepare" ratio="100" division="object"
+                    config="cprefix=s3testqwer;containers=r(1,16);objects=r(1,100);sizes=c(2)MB;cprefix=s3testqwer;containers=r(1,16);objects=r(1,100);sizes=c(2)MB;cprefix=s3testqwer;containers=r(1,16);objects=r(1,100);sizes=c(2)MB;createContainer=false;cprefix=s3testqwer;containers=r(1,16);objects=r(1,100);sizes=c(2)MB" id="op1"/>
+            </work>
+        </workstage>
+        <workstage name="main" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=accessKey1;secretkey=verySecretKey1;endpoint=http://eudat-01.rl.ac.uk;path_style_access=true"/>
+            <work name="main" type="normal" workers="3" interval="5"
+                division="none" runtime="60" rampup="0" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=accessKey1;secretkey=verySecretKey1;endpoint=http://eudat-01.rl.ac.uk;path_style_access=true"/>
+                <operation type="read" ratio="80" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,16);objects=u(1,80)" id="op1"/>
+                <operation type="write" ratio="20" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,16);objects=u(81,100);sizes=c(2)MB" id="op2"/>
+            </work>
+        </workstage>
+        <workstage name="cleanup" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=accessKey1;secretkey=verySecretKey1;endpoint=http://eudat-01.rl.ac.uk;path_style_access=true"/>
+            <work name="cleanup" type="cleanup" workers="1" interval="5"
+                division="object" runtime="0" rampup="0" rampdown="0"
+                afr="0" totalOps="1" totalBytes="0" config="cprefix=s3testqwer;containers=r(1,16);objects=r(1,100)">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=accessKey1;secretkey=verySecretKey1;endpoint=http://eudat-01.rl.ac.uk;path_style_access=true"/>
+                <operation type="cleanup" ratio="100" division="object"
+                    config="cprefix=s3testqwer;containers=r(1,16);objects=r(1,100);cprefix=s3testqwer;containers=r(1,16);objects=r(1,100);cprefix=s3testqwer;containers=r(1,16);objects=r(1,100);deleteContainer=false;cprefix=s3testqwer;containers=r(1,16);objects=r(1,100)" id="op1"/>
+            </work>
+        </workstage>
+        <workstage name="dispose" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=accessKey1;secretkey=verySecretKey1;endpoint=http://eudat-01.rl.ac.uk;path_style_access=true"/>
+            <work name="dispose" type="dispose" workers="1" interval="5"
+                division="container" runtime="0" rampup="0" rampdown="0"
+                afr="0" totalOps="1" totalBytes="0" config="cprefix=s3testqwer;containers=r(1,16)">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=accessKey1;secretkey=verySecretKey1;endpoint=http://eudat-01.rl.ac.uk;path_style_access=true"/>
+                <operation type="dispose" ratio="100"
+                    division="container"
+                    config="cprefix=s3testqwer;containers=r(1,16);cprefix=s3testqwer;containers=r(1,16);cprefix=s3testqwer;containers=r(1,16);objects=r(0,0);sizes=c(0)B;cprefix=s3testqwer;containers=r(1,16)" id="op1"/>
+            </work>
+        </workstage>
+    </workflow>
+</workload>

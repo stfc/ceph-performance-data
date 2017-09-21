@@ -1,0 +1,86 @@
+{
+    "columns": [
+        "Op-Type", 
+        "Op-Count", 
+        "Byte-Count", 
+        "Avg-ResTime", 
+        "Avg-ProcTime", 
+        "Throughput", 
+        "Bandwidth", 
+        "Succ-Ratio", 
+        "Status"
+    ], 
+    "data": [
+        {
+            "Avg-ProcTime": 0.0, 
+            "Avg-ResTime": 0.0, 
+            "Bandwidth": "N/A", 
+            "Byte-Count": "init", 
+            "Op-Count": "init-write", 
+            "Op-Type": "s1-init", 
+            "Status": "N/A", 
+            "Succ-Ratio": "N/A", 
+            "Throughput": "N/A"
+        }, 
+        {
+            "Avg-ProcTime": 3200000000.0, 
+            "Avg-ResTime": 1600.0, 
+            "Bandwidth": 61.64, 
+            "Byte-Count": "prepare", 
+            "Op-Count": "prepare-write", 
+            "Op-Type": "s2-prepare", 
+            "Status": 90.0, 
+            "Succ-Ratio": 80.0, 
+            "Throughput": 78.09
+        }, 
+        {
+            "Avg-ProcTime": 1282000000.0, 
+            "Avg-ResTime": 641.0, 
+            "Bandwidth": 28.73, 
+            "Byte-Count": "read", 
+            "Op-Count": "read", 
+            "Op-Type": "s3-main", 
+            "Status": 170.0, 
+            "Succ-Ratio": 120.0, 
+            "Throughput": 132.83
+        }, 
+        {
+            "Avg-ProcTime": 504000000.0, 
+            "Avg-ResTime": 252.0, 
+            "Bandwidth": 160.71, 
+            "Byte-Count": "write", 
+            "Op-Count": "write", 
+            "Op-Type": "s3-main", 
+            "Status": 610.0, 
+            "Succ-Ratio": 330.0, 
+            "Throughput": 402.23
+        }, 
+        {
+            "Avg-ProcTime": 0.0, 
+            "Avg-ResTime": 1600.0, 
+            "Bandwidth": 21.04, 
+            "Byte-Count": "cleanup", 
+            "Op-Count": "cleanup-delete", 
+            "Op-Type": "s4-cleanup", 
+            "Status": 30.0, 
+            "Succ-Ratio": 30.0, 
+            "Throughput": 21.04
+        }, 
+        {
+            "Avg-ProcTime": 0.0, 
+            "Avg-ResTime": 0.0, 
+            "Bandwidth": "N/A", 
+            "Byte-Count": "dispose", 
+            "Op-Count": "dispose-delete", 
+            "Op-Type": "s5-dispose", 
+            "Status": "N/A", 
+            "Succ-Ratio": "N/A", 
+            "Throughput": "N/A"
+        }
+    ], 
+    "endpoint": "http://eudat-01.rl.ac.uk", 
+    "id": "w30", 
+    "storage_type": "s3", 
+    "title": "Workload w30", 
+    "workers": 4
+}
