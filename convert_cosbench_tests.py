@@ -86,19 +86,19 @@ def get_summary_data(workload_filepath):
     summary_arr = []
     with open(archive_filepath+'/'+workload_filepath+'/'+workload_filepath+'.csv') as f:
         reader = csv.reader(f)
-        col_header = reader.next() #throw away first line
+        col_header = reader.next() # gives the index of the actual position of columns in row
 
         # only extract these columns
-        columns = ['Op-Type','Op-Count','Byte-Count','Avg-ResTime','Avg-ProcTime',
+        columns = ['Stage','Op-Type','Op-Count','Byte-Count','Avg-ResTime','Avg-ProcTime',
                             'Throughput','Bandwidth','Succ-Ratio','Status']
         for row in reader:
             #if row[0] != 's3-main': continue
             entry = {}
             for col in columns:
                 try:
-                    entry[col] = float(row[columns.index(col)])
+                    entry[col] = float(row[col_header.index(col)])
                 except ValueError:
-                    entry[col] = row[columns.index(col)]
+                    entry[col] = row[col_header.index(col)]
                 #entry['Op-Type'] = row[columns.index('Op-Type')]
                 #entry['Op-Count'] = float(row[columns.index('Op-Count')])
                 #entry['Byte-Count'] = float(row[columns.index('Byte-Count')])

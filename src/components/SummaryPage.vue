@@ -1,7 +1,7 @@
 <template>
     <div id='summary-page'>
-        <div class='table-container'>
-             <summary-table v-for='wl in workloads'
+        <div class='table-container' v-for='wl in workloads'>
+             <summary-table
                 v-bind:id='wl.id'
                 v-bind:title='wl.title'
                 v-bind:columns='wl.columns'
@@ -45,11 +45,11 @@
         },
 
         methods: {
-            add_workload(wl) {
+            add_workload: function(wl) {
                 this.workloads.push(wl);
             },
 
-            remove_workload(id) {
+            remove_workload: function(id) {
                 for ([index, el] of this.workloads.entries()) {
                     if(el.id == id) {
                         this.workload.splice(index,1);
@@ -65,7 +65,7 @@
         position: relative;
         display: inline-block;
         min-width: 800px;
-        height: 200px;
+        min-height: 200px;
         box-shadow: 10px 10px 5px grey;
         margin: 10px;
     }

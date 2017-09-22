@@ -29,6 +29,12 @@ app.get('/fetchall', function(req, res) {
 });
 
 
+app.get('/fetch_workload', function(req, res) {
+    res.sendFile(__dirname+'/static/data/'+req.query.id+'/data.json');
+ 
+});
+
+
 app.listen(3000, function listening() {
    console.log('listening to port localhost 3000'); 
 });

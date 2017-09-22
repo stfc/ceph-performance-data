@@ -42,6 +42,7 @@ export default {
     table {
         border-collapse: collapse;
         border: 1px solid black;
+        padding: 10px;
     }
 
     th, td {
