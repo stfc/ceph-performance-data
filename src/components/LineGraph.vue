@@ -15,7 +15,7 @@
     export default {
         name: 'LineGraph',
         props: {
-            graph_data:Array
+            graph_data:Object
         },
 
         data: function() {
@@ -25,24 +25,48 @@
         watch: {
             graph_data : function() {
                 if(this.chart != null) {
+                    console.log('Updated Graph Data', this.graph_data);
+                    // Reset chart data
                     this.chart.data.datasets = [];
-                    var labels = [];
-                    this.graph_data.forEach(function(el) {
-                        labels.push(el['x']);
-                    });
-                    this.chart.data.labels = labels;
-                    this.chart.data.datasets.push({data:this.graph_data});
-                    console.log(this.chart.data);
+
+                    // Build graph labels
+                    this.chart.data.labels = [];
+                    for(let d of this.graph_data['data']) {
+                        if(!this.chart.data.labels.includes(d['x'])) {
+                            this.chart.data.labels.push(d['x']);   
+                        }
+                    }
+                    this.chart.data.labels.sort();
+                    
+                    // loop over legends and data to add invidual datasets
+                    for(let l of this.graph_data['legend']) {
+                        var ds = {};
+                        ds.label = l;
+                        ds.data = [];
+                        for(let d of this.graph_data['data']) {
+                            if(d['legend'] == l) {
+                                ds.data.push({'x': d['x'], 'y':d['y']});
+                            }
+                        }
+                        ds.data.sort(function(e1, e2) {
+                            if(e1['x'] < e2['x']) {
+                                return -1;
+                            } else if(e1['x'] == e2['x']) {
+                                return 0;
+                            } else { return 1;}
+                        });
+                        this.chart.data.datasets.push(ds);
+                    }
                     this.chart.update();
                 }
             }
         },
 
         mounted: function(){
-            console.log('datapassed to chart', this.graph_data);
-            var lc = new Chart(this.$el, {
+            console.log('Mounting Graph', this.graph_data);
+            this.chart = new Chart(this.$el, {
                 type: 'line',
-                data: this.graph_data,
+                data: {},
                 options: {
                     scales: {
                         xAxes: [{
@@ -54,7 +78,7 @@
 
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Workers'
+                                labelString: this.graph_data['xtitle']
                             }
                         }],
                         yAxes: [{
@@ -63,13 +87,12 @@
                             },
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Bandwidth'
+                                labelString: this.graph_data['ytitle']
                             }
                         }]
                     }
                 }
             });
-            this.chart = lc;
         }
     }
 
