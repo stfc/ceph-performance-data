@@ -1,7 +1,12 @@
 <template>
-    <div id='summary-page'>
+    <div class='summary-page'>
         <div class='summary-container' v-for='tst in tests' >
-            <h2> Click here to see <router-link v-bind:to="{path: '/' + tst}"> {{ tst }} tests</router-link> </h2>
+            <h2> 
+                Click here to see 
+                <router-link v-bind:to="{path:'/'+tst+'_summary'}"> 
+                    {{ tst }} tests
+                </router-link>
+            </h2>
         </div>
     </div>
 </template>

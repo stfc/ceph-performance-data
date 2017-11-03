@@ -1,5 +1,5 @@
 <template>
-    <div id='summary-page'>
+    <div class='summary-page'>
         <div class='table-container' v-for='wl in workloads'>
              <cosbench-summary-table
                 v-bind:id='wl.id'
@@ -26,7 +26,7 @@
     import CosbenchSummaryTable from './CosbenchSummaryTable.vue'
     export default {
         
-        name: 'Cosbench',
+        name: 'CosbenchSummary',
         
         components: {
             CosbenchSummaryTable

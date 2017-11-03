@@ -34,24 +34,23 @@ app.get('/fetch_cosbench_summary', function(req, res) {
     });
 });
 /*
-app.get('/fetchall', function(req, res) {
-    let type = req.query.type;
-    data = []
-    fs.readdir(__dirname+'/static/data/'+type+'/', function(err, files) {
-        files.forEach(function(f) {
-            var path = __dirname + '/static/data/'+f+'/data.json';
-            data.push(JSON.parse(fs.readFileSync(path)));
-        });
-        res.send(JSON.stringify(data));
-    });
-});
-
-/*
 app.get('/fetch_workload', function(req, res) {
     res.sendFile(__dirname+'/static/data/'+req.query.id+'/data.json');
  
 });
 */
+
+
+app.get('fetch_dd_read_summary', function(req, res) {
+    data = []
+    /* Read CSV in line by line
+    / Create an object with
+        {
+            block_size: [{metric:value}]
+        }     
+    for every block size
+    */
+});
 
 app.listen(3000, function listening() {
    console.log('listening to port localhost 3000'); 

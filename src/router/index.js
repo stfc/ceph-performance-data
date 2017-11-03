@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import SummaryPage from '@/components/SummaryPage'
 import ComparisonPage from '@/components/ComparisonPage'
-import Cosbench from '@/components/Cosbench'
+import CosbenchSummary from '@/components/CosbenchSummary'
+import DDSummary from '@/components/DDSummary'
 
 Vue.use(Router)
 
@@ -15,16 +16,22 @@ export default new Router({
             component: SummaryPage
         },
 
-        {
-            path: '/summary',
-            name: 'summary_page',
+        {   // rename to test summary
+            path: '/test_summary',
+            name: 'test_summary_page',
             component: SummaryPage  
         },
 
+        {   // rename to cosbench summary
+            path:'/cosbench_summary',
+            name: 'cosbench_summary_page',
+            component: CosbenchSummary
+        },
+
         {
-            path:'/cosbench',
-            name: 'cosbench_page',
-            component: Cosbench
+            path: '/dd_summary',
+            name: 'dd_summary_page',
+            component: DDSummary
         }
        
     ]
