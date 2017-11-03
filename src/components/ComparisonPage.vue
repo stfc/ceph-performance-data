@@ -40,7 +40,7 @@
 
         created() {
             for(const id of this.workload_ids.split(',')) {
-                var url = 'http://vm236.nubes.stfc.ac.uk:3000/fetch_workload?id='+id 
+                var url = 'http://localhost:3000/fetch_workload?id='+id 
                 this.axios.get(url).then(response => {
                     console.log('Fetched workloads',response.data);
                     this.workloads.push(response.data);

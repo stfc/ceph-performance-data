@@ -1,74 +1,46 @@
 <template>
     <div id='summary-page'>
-        <div class='table-container' v-for='wl in workloads'>
-             <summary-table
-                v-bind:id='wl.id'
-                v-bind:title='wl.title'
-                v-bind:columns='wl.columns'
-                v-bind:data='wl.data'
-                v-bind:key='wl.id'
-             >
-             </summary-table> 
+        <div class='summary-container' v-for='tst in tests' >
+            <h2> Click here to see <router-link v-bind:to="{path: '/' + tst}"> {{ tst }} tests</router-link> </h2>
         </div>
     </div>
 </template>
 
 
 <script>
-    // Accepts Array of workload Objects in the format
-    /*
-        workload : {
-            id: String,
-            title: String [optional],
-            columns: Array[String],
-            data: Array[{colname:Value}]
-    */
-    import SummaryTable from './SummaryTable.vue'
     export default {
         
         name: 'SummaryPage',
         
         components: {
-            SummaryTable
         },
 
         data: () => ({
-            workloads: []
+            tests: []
         }),
 
         created () {
-            this.axios.get('http://vm236.nubes.stfc.ac.uk:3000/fetchall').then(response => {
-                console.log('Axios workloads result',response.data);
-                this.workloads = response.data;
+            this.axios.get('http://localhost:3000/tests').then(response => {
+                console.log('Axios tests result',response.data);
+                this.tests = response.data;
             })
-
         },
 
         methods: {
-            add_workload: function(wl) {
-                this.workloads.push(wl);
-            },
-
-            remove_workload: function(id) {
-                for ([index, el] of this.workloads.entries()) {
-                    if(el.id == id) {
-                        this.workload.splice(index,1);
-                    }
-                }
-            }
         }
     }
 </script>
 
 <style scoped>
-    .table-container {
-        position: relative;
-        display: inline-block;
-        min-width: 800px;
-        min-height: 200px;
-        box-shadow: 10px 10px 5px grey;
-        margin: 10px;
-    }
+
+.summary-container {
+    position: relative;
+    display: inline-block;
+    min-width: 800px;
+    min-height: 200px;
+    box-shadow: 10px 10px 5px grey;
+    margin: 10px;
+}
 
 </style>
 

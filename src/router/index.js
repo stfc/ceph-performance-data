@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import SummaryPage from '@/components/SummaryPage'
 import ComparisonPage from '@/components/ComparisonPage'
+import Cosbench from '@/components/Cosbench'
+
 Vue.use(Router)
 
 export default new Router({
@@ -18,11 +20,12 @@ export default new Router({
             name: 'summary_page',
             component: SummaryPage  
         },
+
         {
-            path: '/comparison/:workload_ids',
-            name: '/comparison_page',
-            component: ComparisonPage,
-            props:true
+            path:'/cosbench',
+            name: 'cosbench_page',
+            component: Cosbench
         }
+       
     ]
 })

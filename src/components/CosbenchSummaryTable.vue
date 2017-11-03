@@ -25,7 +25,7 @@
 <script>
 
 export default {
-    name: 'SummaryTable',
+    name: 'CosbenchSummaryTable',
     props: {
         id: String,
         title: String,
