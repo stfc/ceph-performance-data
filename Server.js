@@ -24,7 +24,7 @@ app.get('/tests', function(req, res) {
 
 
 app.get('/fetch_cosbench_summary', function(req, res) {
-    data = []
+    var data = []
     fs.readdir(__dirname+'/static/data/cosbench/', function(err, files) {
         files.forEach(function(f) {
             var path = __dirname + '/static//data/cosbench/'+f+'/data.json';
@@ -41,15 +41,40 @@ app.get('/fetch_workload', function(req, res) {
 */
 
 
-app.get('fetch_dd_read_summary', function(req, res) {
-    data = []
-    /* Read CSV in line by line
-    / Create an object with
-        {
-            block_size: [{metric:value}]
-        }     
-    for every block size
-    */
+app.get('/fetch_dd_summary', function(req, res) {
+    var data = {}
+
+    const path = __dirname+'/static/data/dd/summaries/' + req.query.summary + '.csv';
+    fs.readFile(path, {encoding:'utf8'}, (err, contents) => {
+        if (err) throw err;
+
+        var csv_split = contents.split('\n');
+        var headers = csv_split.shift();
+        headers = headers.split(',');
+
+
+        for (let line of csv_split) {
+            if(line == '') {
+                continue;
+            }
+
+            var split_line = line.split(',');
+            var block_size = split_line[0];
+
+            if( (block_size in data) == false) {
+                data[block_size] = []
+            }
+
+            let metrics = {};
+            for(let i=1; i<split_line.length; i++) {
+                let field = headers[i];
+                metrics[field] = split_line[i];
+            }
+            data[block_size].push(metrics);
+        }
+
+        res.send(JSON.stringify(data));
+    });
 });
 
 app.listen(3000, function listening() {

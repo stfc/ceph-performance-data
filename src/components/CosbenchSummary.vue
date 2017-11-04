@@ -37,7 +37,7 @@
         }),
 
         created () {
-            console.log('cosbench component created');
+            console.log('cosbench summary component created');
             this.axios.get('http://localhost:3000/fetch_cosbench_summary').then(response => {
                 console.log('Axios workloads result',response.data);
                 this.workloads = response.data;
