@@ -51,7 +51,8 @@ app.get('/fetch_dd_summary', function(req, res) {
         var csv_split = contents.split('\n');
         var headers = csv_split.shift();
         headers = headers.split(',');
-
+        data['columns'] = headers;
+        data['results'] = {};
 
         for (let line of csv_split) {
             if(line == '') {
@@ -61,16 +62,20 @@ app.get('/fetch_dd_summary', function(req, res) {
             var split_line = line.split(',');
             var block_size = split_line[0];
 
-            if( (block_size in data) == false) {
-                data[block_size] = []
+            if( (block_size in data['results']) == false) {
+                data['results'][block_size] = []
             }
 
             let metrics = {};
             for(let i=1; i<split_line.length; i++) {
                 let field = headers[i];
-                metrics[field] = split_line[i];
+                if( isNaN( Number(split_line[i]) ) ) {
+                    metrics[field] = split_line[i];
+                } else {
+                    metrics[field] = Number(split_line[i]);
+                }
             }
-            data[block_size].push(metrics);
+            data['results'][block_size].push(metrics);
         }
 
         res.send(JSON.stringify(data));
