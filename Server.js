@@ -82,6 +82,19 @@ app.get('/fetch_dd_summary', function(req, res) {
     });
 });
 
+
+app.get('/fetch_iperf_tests', function(req, res) {
+    var data = []
+    fs.readdir(__dirname+'/static/data/iperf/sn1', function(err, files) {
+        files.forEach(function(f) {
+            var path = __dirname + '/static//data/iperf/sn1/'+f
+            data.push(JSON.parse(fs.readFileSync(path)));
+        });
+        res.send(JSON.stringify(data));
+    });
+});
+    
+
 app.listen(3000, function listening() {
    console.log('listening to port localhost 3000'); 
 });

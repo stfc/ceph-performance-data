@@ -3,18 +3,18 @@
         <thead>
             <tr>
                 <th class='table-title'>
-                    {{ d.title }}
+                    {{ getTitle() }}
                 </th>
             </tr>
             <tr class='table-headers'>
-                <th v-for='col in d.columns'>
+                <th v-for='col in getColumns()'>
                     {{ col }}
                 </th>
             </tr>
          </thead>
          <tbody>
-            <tr v-for='row in d.results'>
-                <td v-for='col in d.columns'>
+            <tr v-for='row in getContents()'>
+                <td v-for='col in getColumns()'>
                     {{ row[col] }}
                 </td>
             </tr>
@@ -27,7 +27,24 @@
 export default {
     name: 'VueTable',
     props: {
-        d: Object
+        title:String,
+        columns:Array,
+        contents:Array,
+        config_obj: Object
+    },
+
+    methods: {
+        getTitle() {
+            return this.title || this.config_obj.title;
+        },
+
+        getColumns() {
+            return this.columns || this.config_obj.columns;
+        },
+
+          getContents() {
+            return this.contents || this.config_obj.contents;
+        }
     }
 
 }

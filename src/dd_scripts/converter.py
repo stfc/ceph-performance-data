@@ -14,9 +14,10 @@ import csv
 #4096 bytes (4.1 kB) copied, 0.000472967 s, 8.7 MB/s
 
 ttype  = sys.argv[1]
-outputfile = sys.argv[2]
+logpath = sys.argv[2]
+outputfile = sys.argv[3]
 
-logfiles = os.listdir('./logs')
+logfiles = os.listdir(logpath)
 
 data = []
 
@@ -25,7 +26,8 @@ for lf in logfiles:
         continue
 
     entry = {}
-    f = open('./logs/'+lf, 'r')
+    print 'opening log ' + logpath + '/' + lf
+    f = open(logpath+'/'+lf, 'r')
     
     ts = f.readline()[5:]
     ts = ts.replace('\n', '')
@@ -33,7 +35,14 @@ for lf in logfiles:
 
     bs = f.readline().split(':')[1]
     bs = bs.replace('\n', '')
-    entry["BlockSize"] = bs
+    bs_unit = bs[-1]
+    bs = bs[:-1]
+    if bs_unit == 'M':
+        bs = int(bs) * 1024
+    elif bs_unit == 'G':
+        bs = int(bs) * 1024 * 1204
+
+    entry["BlockSize(K)"] = bs
     
     while f.readline() != '1+0 records in\n':
        pass
@@ -64,7 +73,7 @@ for lf in logfiles:
 
 
 outf = open(outputfile, 'w+')
-w = csv.DictWriter(outf, ["BlockSize","Bytes", "Time(s)", "TransferRate(MB/s)", "TimeStamp"], lineterminator='\n')
+w = csv.DictWriter(outf, ["BlockSize(K)","Bytes", "Time(s)", "TransferRate(MB/s)", "TimeStamp"], lineterminator='\n')
 w.writeheader()
 w.writerows(data)
 

@@ -1,14 +1,12 @@
 <template>
     <div class='summary-page'>
         <div class='table-container' v-for='wl in workloads'>
-             <cosbench-summary-table
-                v-bind:id='wl.id'
+             <vue-table
                 v-bind:title='wl.title'
                 v-bind:columns='wl.columns'
-                v-bind:data='wl.data'
-                v-bind:key='wl.id'
+                v-bind:contents='wl.data'
              >
-             </cosbench-summary-table> 
+             </vue-table> 
         </div>
     </div>
 </template>
@@ -23,13 +21,13 @@
             columns: Array[String],
             data: Array[{colname:Value}]
     */
-    import CosbenchSummaryTable from './CosbenchSummaryTable.vue'
+    import VueTable from './VueTable.vue'
     export default {
         
         name: 'CosbenchSummary',
         
         components: {
-            CosbenchSummaryTable
+            VueTable
         },
 
         data: () => ({
@@ -37,12 +35,10 @@
         }),
 
         created () {
-            console.log('cosbench summary component created');
             this.axios.get('http://localhost:3000/fetch_cosbench_summary').then(response => {
                 console.log('Axios workloads result',response.data);
                 this.workloads = response.data;
-            })
-
+            });
         },
 
         methods: {

@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import SummaryPage from '@/components/SummaryPage'
-import ComparisonPage from '@/components/ComparisonPage'
 import CosbenchSummary from '@/components/CosbenchSummary'
 import DDSummary from '@/components/DDSummary'
+import IPerfSummary from '@/components/IPerfSummary'
 
 Vue.use(Router)
 
@@ -32,7 +32,12 @@ export default new Router({
             path: '/dd_summary',
             name: 'dd_summary_page',
             component: DDSummary
+        },
+
+        {
+            path: '/iperf_summary',
+            name: 'iperf_summary_page',
+            component: IPerfSummary
         }
-       
     ]
 })
