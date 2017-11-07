@@ -25,6 +25,7 @@ fi
 
 echo "Time:$DATE" >> $wname
 echo "Blocksize:$1" >> $wname
+echo 3 > /proc/sys/vm/drop_caches
 dd if=/dev/zero of=./tempfile bs="$1" count=1 oflag=direct >> $wname 2>&1
 
 echo "Time:$DATE" >> $rname

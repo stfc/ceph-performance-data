@@ -26,7 +26,6 @@ for lf in logfiles:
         continue
 
     entry = {}
-    print 'opening log ' + logpath + '/' + lf
     f = open(logpath+'/'+lf, 'r')
     
     ts = f.readline()[5:]
@@ -71,12 +70,9 @@ for lf in logfiles:
     data.append(entry)
     f.close()
 
-
 outf = open(outputfile, 'w+')
 w = csv.DictWriter(outf, ["BlockSize(K)","Bytes", "Time(s)", "TransferRate(MB/s)", "TimeStamp"], lineterminator='\n')
 w.writeheader()
 w.writerows(data)
 
 outf.close()
-
-

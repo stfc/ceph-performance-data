@@ -44,7 +44,7 @@ app.get('/fetch_workload', function(req, res) {
 app.get('/fetch_dd_summary', function(req, res) {
     var data = {}
 
-    const path = __dirname+'/static/data/dd/summaries/' + req.query.summary + '.csv';
+    const path = __dirname+'/static/data/dd/sn1/summaries/' + req.query.summary + '.csv';
     fs.readFile(path, {encoding:'utf8'}, (err, contents) => {
         if (err) throw err;
 
