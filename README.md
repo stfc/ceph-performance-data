@@ -1,6 +1,9 @@
 # ceph-performance-grapher
 
-> \WebApp to plot performance data on the CEPH object store.\
+WebApp to plot performance data on the CEPH object store.
+It App Vue.js in order to modularise all the tests.
+Each type of test has its own subset of Vue.js components, making it extremely easy to modularise and
+expand the app.
 
 ## Build Setup
 
