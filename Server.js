@@ -5,6 +5,8 @@ const fs = require('fs')
 app = express();
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+ //   res.header("Access-Control-Allow-Origin", "http://127.0.01:8080");
+  //  res.header("Access-Control-Allow-Origin", "http://130.246.77.137:8080");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });

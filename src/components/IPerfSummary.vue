@@ -43,16 +43,21 @@
                     data['title'] = (test.start.test_start.duration / 60) + ' Minutes';
                     data['columns'] = ['Field', 'Result'];
                     data['contents'] = [];
-                    data['contents'].push({'Field':'Duration(s)', 'Result':test.start.test_start.duration});
+                    data['contents'].push({'Field':'Duration(s)', 'Result':test.start.test_start.duration.toPrecision(3)});
                     data['contents'].push({'Field':'Host', 'Result':test.start.connecting_to.host});
                     data['contents'].push({'Field':'Protocol', 'Result':test.start.test_start.protocol});
-                    data['contents'].push({'Field':'BlockSize(bit)', 'Result':test.start.test_start.blksize});
+                    data['contents'].push({'Field':'BlockSize(bit)', 'Result':test.start.test_start.blksize.toPrecision(3)});
 
-                    data['contents'].push({'Field':'Bytes Sent', 'Result':test.end.sum_sent.bytes});
-                    data['contents'].push({'Field':'Speed(Mbits/s)', 'Result':test.end.sum_sent.bits_per_second/(1024 * 1024)});
+                    data['contents'].push({'Field':'Bytes Sent', 'Result':test.end.sum_sent.bytes.toPrecision(3)});
+                    data['contents'].push({'Field':'Speed(Mbits/s)', 'Result':(test.end.sum_sent.bits_per_second/(1024 * 1024)).toPrecision(3)});
                     data['contents'].push({'Field':'Retransmits', 'Result':test.end.sum_sent.retransmits});
-                    data['contents'].push({'Field':'Host CPU (%)', 'Result':test.end.cpu_utilization_percent.host_total});
-                    data['contents'].push({'Field':'Remote CPU (%)', 'Result':test.end.cpu_utilization_percent.remote_total});
+                    data['contents'].push({'Field':'Host CPU (%)', 'Result':test.end.cpu_utilization_percent.host_total.toPrecision(3)});
+                    data['contents'].push({'Field':'Remote CPU (%)', 'Result':test.end.cpu_utilization_percent.remote_total.toPrecision(3)});
+                    data['contents'].push({'Field':'Maximum Speed(Mbits/s', 'Result': (this.getMaximumSpeed(test)/(1024 * 1024)).toPrecision(3)});
+                    data['contents'].push({'Field':'Minimum Speed(Mbits/s', 'Result': (this.getMinimumSpeed(test)/(1024 * 1024)).toPrecision(3)});
+
+        
+
                     res.push(data);
                 }
                 res.sort(function(a,b) {
@@ -65,6 +70,26 @@
                     }
                 });
                 return res
+            },
+
+            getMaximumSpeed: function(test) {
+                var max = 0;
+                for(let interval of test.intervals) {
+                    if (interval.sum.bits_per_second > max) {
+                        max = interval.sum.bits_per_second;
+                    }
+                }
+                return max;
+            },
+
+            getMinimumSpeed: function(test) {
+                var min = 0;
+                for(let interval of test.intervals) {
+                    if (min == 0 || interval.sum.bits_per_second  < min) {
+                        min = interval.sum.bits_per_second;
+                    }
+                }
+                return min;
             }
         }
     }

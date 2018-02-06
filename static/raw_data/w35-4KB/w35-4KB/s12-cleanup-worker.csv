@@ -1,0 +1,17 @@
+Op-Type,Sample-Type,Op-Count,Byte-Count,Avg-ResTime,Avg-ProcTime,Throughput,Bandwidth,Succ-Ratio
+cleanup,delete,1500,0,70.99,70.99,14.09,0,100%
+cleanup,delete,1500,0,71.51,71.51,13.98,0,100%
+cleanup,delete,1500,0,71.46,71.46,13.99,0,100%
+cleanup,delete,1500,0,71.82,71.82,13.92,0,100%
+cleanup,delete,1500,0,64.87,64.87,15.41,0,100%
+cleanup,delete,1500,0,66.71,66.71,14.99,0,100%
+cleanup,delete,1500,0,68.61,68.61,14.57,0,100%
+cleanup,delete,1500,0,71.64,71.64,13.95,0,100%
+cleanup,delete,1500,0,69.74,69.74,14.34,0,100%
+cleanup,delete,1500,0,72.06,72.06,13.87,0,100%
+cleanup,delete,1500,0,69.96,69.96,14.29,0,100%
+cleanup,delete,1500,0,72.08,72.08,13.87,0,100%
+cleanup,delete,1500,0,70.92,70.92,14.1,0,100%
+cleanup,delete,1500,0,72.61,72.61,13.77,0,100%
+cleanup,delete,1500,0,72.22,72.22,13.85,0,100%
+cleanup,delete,1500,0,70.34,70.34,14.21,0,100%
