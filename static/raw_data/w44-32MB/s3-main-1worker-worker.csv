@@ -1,3 +1,0 @@
-Op-Type,Sample-Type,Op-Count,Byte-Count,Avg-ResTime,Avg-ProcTime,Throughput,Bandwidth,Succ-Ratio
-read,read,37,1184000000,978.16,29.49,0.62,19901501.02,100%
-write,write,22,704000000,1058.86,30.18,0.37,11833324.93,100%
