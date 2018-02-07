@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workload name="8MB"
+    description="for 8MB object size run 140s tests with workers 1,4,8,16,32,64,128,256,512 with a 10s ramp up and down time." config="">
+    <auth type="none"/>
+    <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+    <workflow config="">
+        <workstage name="init" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="init" type="init" workers="1" interval="5"
+                division="container" runtime="0" rampup="0" rampdown="0"
+                afr="0" totalOps="1" totalBytes="0" config="cprefix=s3testqwer;containers=r(1,10)">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="init" ratio="100" division="container"
+                    config="cprefix=s3testqwer;containers=r(1,10);cprefix=s3testqwer;containers=r(1,10);cprefix=s3testqwer;containers=r(1,10);objects=r(0,0);sizes=c(0)B;cprefix=s3testqwer;containers=r(1,10)" id="op1"/>
+            </work>
+        </workstage>
+        <workstage name="prepare" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="prepare" type="prepare" workers="16"
+                interval="5" division="object" runtime="0" rampup="0"
+                rampdown="0" afr="0" totalOps="16" totalBytes="0" config="cprefix=s3testqwer;containers=r(1,10);objects=r(1,500);sizes=c(8)MB">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="prepare" ratio="100" division="object"
+                    config="cprefix=s3testqwer;containers=r(1,10);objects=r(1,500);sizes=c(8)MB;cprefix=s3testqwer;containers=r(1,10);objects=r(1,500);sizes=c(8)MB;cprefix=s3testqwer;containers=r(1,10);objects=r(1,500);sizes=c(8)MB;createContainer=false;cprefix=s3testqwer;containers=r(1,10);objects=r(1,500);sizes=c(8)MB" id="op1"/>
+            </work>
+        </workstage>
+        <workstage name="main-1worker" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="main" type="normal" workers="1" interval="5"
+                division="none" runtime="120" rampup="10" rampdown="10"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="read" ratio="70" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1,500)" id="op1"/>
+                <operation type="write" ratio="30" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(501,600);sizes=c(8)MB" id="op2"/>
+            </work>
+        </workstage>
+        <workstage name="main-4workers" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="main" type="normal" workers="4" interval="5"
+                division="none" runtime="120" rampup="10" rampdown="10"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="read" ratio="70" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1,500)" id="op1"/>
+                <operation type="write" ratio="30" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(601,700);sizes=c(8)MB" id="op2"/>
+            </work>
+        </workstage>
+        <workstage name="main-8workers" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="main" type="normal" workers="8" interval="5"
+                division="none" runtime="120" rampup="10" rampdown="10"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="read" ratio="70" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1,300)" id="op1"/>
+                <operation type="write" ratio="30" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(701,800);sizes=c(8)MB" id="op2"/>
+            </work>
+        </workstage>
+        <workstage name="main-16workers" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="main" type="normal" workers="16" interval="5"
+                division="none" runtime="120" rampup="10" rampdown="10"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="read" ratio="70" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1,500)" id="op1"/>
+                <operation type="write" ratio="30" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(801,900);sizes=c(8)MB" id="op2"/>
+            </work>
+        </workstage>
+        <workstage name="main-32workers" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="main" type="normal" workers="32" interval="5"
+                division="none" runtime="120" rampup="10" rampdown="10"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="read" ratio="70" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1,500)" id="op1"/>
+                <operation type="write" ratio="30" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(901,1000);sizes=c(8)MB" id="op2"/>
+            </work>
+        </workstage>
+        <workstage name="main-64workers" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="main" type="normal" workers="64" interval="5"
+                division="none" runtime="120" rampup="10" rampdown="10"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="read" ratio="70" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1,500)" id="op1"/>
+                <operation type="write" ratio="30" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1001,1100);sizes=c(8)MB" id="op2"/>
+            </work>
+        </workstage>
+        <workstage name="main-128workers" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="main" type="normal" workers="128" interval="5"
+                division="none" runtime="120" rampup="10" rampdown="10"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="read" ratio="70" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1,500)" id="op1"/>
+                <operation type="write" ratio="30" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1100,1200);sizes=c(8)MB" id="op2"/>
+            </work>
+        </workstage>
+        <workstage name="main-256workers" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="main" type="normal" workers="256" interval="5"
+                division="none" runtime="120" rampup="10" rampdown="10"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="read" ratio="70" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1,500)" id="op1"/>
+                <operation type="write" ratio="30" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1201,1300);sizes=c(8)MB" id="op2"/>
+            </work>
+        </workstage>
+        <workstage name="main-512workers" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="main" type="normal" workers="512" interval="5"
+                division="none" runtime="120" rampup="10" rampdown="10"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="read" ratio="70" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1,500)" id="op1"/>
+                <operation type="write" ratio="30" division="none"
+                    config="cprefix=s3testqwer;containers=u(1,10);objects=u(1301,1400);sizes=c(8)MB" id="op2"/>
+            </work>
+        </workstage>
+        <workstage name="cleanup" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="cleanup" type="cleanup" workers="16"
+                interval="5" division="object" runtime="0" rampup="0"
+                rampdown="0" afr="0" totalOps="16" totalBytes="0" config="cprefix=s3testqwer;containers=r(1,10);objects=r(1,1400)">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="cleanup" ratio="100" division="object"
+                    config="cprefix=s3testqwer;containers=r(1,10);objects=r(1,1400);cprefix=s3testqwer;containers=r(1,10);objects=r(1,1400);cprefix=s3testqwer;containers=r(1,10);objects=r(1,1400);deleteContainer=false;cprefix=s3testqwer;containers=r(1,10);objects=r(1,1400)" id="op1"/>
+            </work>
+        </workstage>
+        <workstage name="dispose" closuredelay="0" config="">
+            <auth type="none"/>
+            <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+            <work name="dispose" type="dispose" workers="16"
+                interval="5" division="container" runtime="0" rampup="0"
+                rampdown="0" afr="0" totalOps="16" totalBytes="0" config="cprefix=s3testqwer;containers=r(1,10)">
+                <auth type="none"/>
+                <storage type="s3" config="accesskey=CHCWY9K1VHC5OTCP19MJ;secretkey=3ppdirTvdUQBE0rnndTeDjWxas0VQOxKtVDkHF8j;         endpoint=ceph-res-gw1.fds.rl.ac.uk;path_style_access=true"/>
+                <operation type="dispose" ratio="100"
+                    division="container"
+                    config="cprefix=s3testqwer;containers=r(1,10);cprefix=s3testqwer;containers=r(1,10);cprefix=s3testqwer;containers=r(1,10);objects=r(0,0);sizes=c(0)B;cprefix=s3testqwer;containers=r(1,10)" id="op1"/>
+            </work>
+        </workstage>
+    </workflow>
+</workload>

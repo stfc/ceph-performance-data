@@ -1,0 +1,7 @@
+Timestamp,Op-Count,Byte-Count,Avg-ResTime,Avg-ProcTime,Throughput,Bandwidth,Succ-Ratio,Version-Info,,
+,prepare-write,prepare-write,prepare-write,prepare-write,prepare-write,prepare-write,prepare-write,Min-Version,Version,Max-Version
+09:32:08,1342,171776000,59.95,53.34,266.4,34099176.66,100%,0,0,0
+09:32:13,1072,137216000,75.3,70.62,212.29,27172775.02,100%,1,1,1
+09:32:18,844,108032000,83.74,79.1,167.07,21384556.4,100%,2,2,2
+09:32:23,657,84096000,84.42,79.82,154.49,19774261.27,100%,3,3,3
+09:32:28,668,85504000,78.94,74.23,266.38,34097104.15,100%,4,4,4
